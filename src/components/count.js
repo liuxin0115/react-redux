@@ -1,6 +1,6 @@
-import React, { Component, createRef } from 'react'
+import React, { Component } from 'react';
 
-export default class App extends Component {
+export default class count extends Component {
 
   constructor (props) {
     super(props)
@@ -8,36 +8,29 @@ export default class App extends Component {
   }
 
   state = {
-    count: 0,
-    value: ''
+      value: ''
   }
 
   add = () => {
     const number = this.state.value ? parseInt(this.state.value) : parseInt(this.number.current.value);
-    console.log(number)
-    this.setState({
-      count: this.state.count + number
-    })
+    this.props.add(number)
   }
 
   reduce = () => {
     const number = this.state.value ? parseInt(this.state.value) : parseInt(this.number.current.value);
-    this.setState({
-      count: this.state.count - number
-    })
+    this.props.reduce(number)
   }
 
   addIfOdd = () => {
-    const count = this.state.count
+    const count = this.props.count;
     if (count % 2 === 1) {
-      this.add();
+        this.add();
     }
   }
 
   addAsync = () => {
-    setTimeout(() => {
-      this.add();
-    },1000)
+    const number = this.state.value ? parseInt(this.state.value) : parseInt(this.number.current.value);
+    this.props.addAsync(number)
   }
 
   changeValue = (event) => {
@@ -47,8 +40,8 @@ export default class App extends Component {
   }
   
   render() {
-    const {count, value} = this.state
-
+    const {value} = this.state
+    const count = this.props.count
     return (
       <div className="app">
         <p>click   {count}   times</p>
